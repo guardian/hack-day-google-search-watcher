@@ -1,6 +1,7 @@
 package lib
 
 import models.{GoogleResult, InTheNewsLink}
+import org.joda.time.DateTime
 import play.api.libs.functional.syntax._
 import play.api.libs.json.{JsPath, Writes}
 
@@ -13,6 +14,7 @@ object Writers {
 
   implicit val locationWrites: Writes[GoogleResult] = (
       (JsPath \ "image").write[String] and
+      (JsPath \ "time").write[DateTime] and
       (JsPath \ "report").write[Seq[InTheNewsLink]]
     )(unlift(GoogleResult.unapply))
 }

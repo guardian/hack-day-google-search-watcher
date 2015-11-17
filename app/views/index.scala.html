@@ -1,4 +1,4 @@
-@(message: String)
+@(words: Seq[String])
 
     @main("Google Search Watcher") {
 
@@ -32,14 +32,12 @@
             </form>
         </section>
 
-
-
         <section>
         <h2>Watch list</h2>
-
-
-        <ul>
-            <li><a href="/dashboard?q=paris">Paris</a></li>
-        </ul>
+          <ul>
+            @for(word <- words) {
+              <li><a href="/dashboard?q=@word">@word</a></li>
+            }
+          </ul>
         </section>
     }
