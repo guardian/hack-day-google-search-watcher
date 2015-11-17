@@ -8,7 +8,7 @@
 
                 @for(tr <- countryResult.termResults){
                     @if(tr.inTopBox){
-                        <li><b>@tr.term </b> top box <a href="/" title="add watch">[+]</a></li>
+                        <li><em>@tr.term  top box </em> <a href="/" title="add watch">[+]</a></li>
                     } else {
                         <li>@tr.term <a href="/" title="add watch">[+]</a></li>
                     }

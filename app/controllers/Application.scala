@@ -18,4 +18,8 @@ class Application extends Controller {
     val countryResult = Trending.getCountryResult(country)
     countryResult.map(result => Ok(views.html.index(result)))
   }
+
+  def countries() = Action.async{
+    TrendingSearchTerms.getListOfCountries().map(list => Ok(views.html.countryTrending(list)))
+  }
 }

@@ -4,8 +4,9 @@
 
 # Home page
 GET     /current                    controllers.Application.current(tld: String, q: String)
-GET     /                           controllers.Application.index(country = "united_kingdom")
+GET     /                           controllers.Application.index(country: String  ?= "united_kingdom")
 GET     /dashboard                  controllers.Dashboard.index(q: String)
+GET     /countries                  controllers.Application.countries()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

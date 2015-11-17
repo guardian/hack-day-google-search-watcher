@@ -22,6 +22,13 @@ object TrendingSearchTerms {
     }
   }
 
+  def getListOfCountries(): Future[List[String]] ={
+    val futureJsValue = WS.url("https://www.google.com/trends/hottrends/visualize/internal/data").get().map(response => response.json)
+    futureJsValue.map{ json =>
+      getCountries(json)
+    }
+  }
+
   def getCountries(json: JsValue): List[String] = {
     json.toString()
       .split(",")
