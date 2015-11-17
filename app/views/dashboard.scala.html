@@ -3,12 +3,12 @@
 
     <section>
 
-    <dl id="summary">
-        <dt>Search term</dt>
-        <dd>@term</dd>
-        <dt>Region</dt>
-        <dd>UK</dd>
-    </dl>
+        <dl id="summary">
+            <dt>Search term</dt>
+            <dd>@term</dd>
+            <dt>Region</dt>
+            <dd>UK</dd>
+        </dl>
     </section>
 
     <img height="420" width="700" src="data:image/png;base64,@result.image"/>
@@ -27,39 +27,17 @@
             </thead>
 
             <tbody>
-                <tr>
-                    <td>Pos 1</td>
-                    <td>
-                        <p><a href="http://www.bbc.co.uk/news/world-europe-34840699">
-                            Paris attacks: France mobilises 115000 security personnel</a></p>
-                        <p><a href="http://www.bbc.co.uk/news/world-europe-34840699">
-                            http://www.bbc.co.uk/news/world-europe-34840699</a></p>
-                        <p>BBC News</p>
-                    </td>
-                    <td>45 mins</td>
-                </tr>
-                <tr>
-                    <td>Pos 2</td>
-                    <td>
-                        <p><a href="http://www.theguardian.com/world/ng-interactive/2015/nov/17/la-belle-equipe-paris-attacks-photographs">
-                            The scene at La Belle Équipe after the Paris attacks</a></p>
-                        <p><a href="http://www.theguardian.com/world/ng-interactive/2015/nov/17/la-belle-equipe-paris-attacks-photographs">
-                            http://www.theguardian.com/world/ng-interactive/2015/nov/17/la-belle-equipe-paris-attacks-photographs</a></p>
-                        <p>The Guardian</p>
-                    </td>
-                    <td>45 mins</td>
-                </tr>
-                <tr>
-                    <td>Pos 3</td>
-                    <td>
-                        <p><a href="http://www.telegraph.co.uk/news/worldnews/europe/france/11999927/Paris-France-terror-attacks-isil-Belgium-Molenbeek-suspects-Syria-Raqqa-bombing-live.html">
-                            Paris attacks: French military launches second wave of airstrikes against Islamic State in Syria - latest news</a></p>
-                        <p><a href="http://www.telegraph.co.uk/news/worldnews/europe/france/11999927/Paris-France-terror-attacks-isil-Belgium-Molenbeek-suspects-Syria-Raqqa-bombing-live.html">
-                            http://www.telegraph.co.uk/news/worldnews/europe/france/11999927/Paris-France-terror-attacks-isil-Belgium-Molenbeek-suspects-Syria-Raqqa-bombing-live.html</a></p>
-                        <p>Telegraph.co.uk</p>
-                    </td>
-                    <td>15 mins</td>
-                </tr>
+                @for(r <- result.report) {
+                    <tr>
+                        <td>Pos @r.rank</td>
+                        <td>
+                            <p><a href="@r.href">@r.title</a></p>
+                            <p><a href="@r.href">@r.href</a></p>
+                            <p>@r.source</p>
+                        </td>
+                        <td>45 mins</td>
+                    </tr>
+                }
             </tbody>
         </table>
     </section>
