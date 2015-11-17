@@ -14,7 +14,8 @@ class Application extends Controller {
     image map { result => Ok(Json.toJson(result)) }
   }
 
-  def index = Action {
-    Ok(views.html.index("Your new application is ready."))
+  def index(country: String) = Action.async {
+    val countryResult = Trending.getCountryResult(country)
+    countryResult.map(result => Ok(views.html.index(result)))
   }
 }

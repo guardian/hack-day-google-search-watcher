@@ -1,21 +1,18 @@
 package controllers
 
-import play.api.mvc.{Action, Controller}
 import services.{TrendingSearchTerms, GoogleResultService}
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 case class TermResult(term: String, inTopBox: Boolean)
-
 case class CountryResult(country: String, termResults: List[TermResult])
 
-class Trending extends Controller {
+object Trending {
 
   val google = new GoogleResultService
 
-
-  def index(countryString: String) = Action.async {
-    val trending = TrendingSearchTerms.get().map(_.toList)
+  def getCountryResult(countryString: String) : Future[CountryResult] =  {
+    TrendingSearchTerms.get().map(_.toList)
       .flatMap { list =>
         Future.sequence(list.flatMap { case (country, terms) =>
           if (country.equals(countryString)) {
@@ -29,8 +26,6 @@ class Trending extends Controller {
 
         })
       }.map{_.head}
-
-    Future(Ok("test"))
   }
 
 }
