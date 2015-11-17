@@ -20,7 +20,7 @@ class GoogleResultService(implicit e: ExecutionContext) {
     val links = driver.findElementsByXPath("//text()[contains(.,'In the news')]/../..//div[cite]/..//a")
 
     val report = links.toList.zipWithIndex.collect {
-      case (link, index) if link.getAttribute("href") contains "guardian" =>
+      case (link, index) =>
         InTheNewsLink(index +1, link.getText, link.getAttribute("href"))
     }
 
