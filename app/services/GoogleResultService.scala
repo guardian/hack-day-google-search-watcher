@@ -9,6 +9,7 @@ import scala.concurrent._
 
 class GoogleResultService(implicit e: ExecutionContext) {
   def getImage(url: String): Future[GoogleResult] = Future {
+
     val driver = new ChromeDriver
 
     driver.get(url)
