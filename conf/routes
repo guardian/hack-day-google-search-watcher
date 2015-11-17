@@ -3,6 +3,7 @@
 # ~~~~
 
 # Home page
+GET     /current                    controllers.Application.current(tld: String, q: String)
 GET     /                           controllers.Application.index
 GET     /dashboard                  controllers.Dashboard.index
 

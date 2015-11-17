@@ -1,0 +1,10 @@
+@(image: String, report: Seq[InTheNewsLink])
+<style>
+body {
+margin: 0;
+}
+</style>
+<div style="width: 100%; background-color: #eee">
+  @report.toString()
+</div>
+<img style="width: 100%; float: left" src="data:image/png;base64,@image"/>
