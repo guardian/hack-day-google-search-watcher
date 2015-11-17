@@ -26,8 +26,10 @@ class Application extends Controller {
   }
 
   def index(country: String) = Action.async {
-    val countryResult = Trending.getCountryResult(country)
-    words.getAll flatMap { words => countryResult.map(result => Ok(views.html.index(result)))}
+    for {
+      watchList <- words.getAll
+      countryResult <- Trending.getCountryResult(country)
+    } yield Ok(views.html.index(watchList.map(_.query), countryResult))
   }
 
   def countries() = Action.async{
