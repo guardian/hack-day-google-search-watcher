@@ -1,0 +1,55 @@
+
+
+* {
+    font: 12pt "Guardian Egyptian Web","Guardian Text Egyptian Web",Georgia,serif;;
+}
+
+body {
+    margin: 0;
+}
+
+h1 {
+    background: #005689;
+    height: 50px;
+    color: white;
+    font-weight: bold;
+    font-size: 200%;
+    padding: 0 0 1em;
+    margin: 0;
+}
+
+svg {
+    transform-origin: 50% 50% 0px;
+}
+
+nav {
+    background: #00456e;
+}
+nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+}
+
+nav li {
+    display: inline-block;
+    margin: 0 1em 0 0;
+    padding: 1em 0;
+}
+
+nav a {
+    color: white;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+section {
+    border-top: 1px #4bc6df solid;
+    background: rgb(246, 246, 246);
+    margin: 1em 0;
+}
+
+h2 {
+    font-weight: 600;
+}
