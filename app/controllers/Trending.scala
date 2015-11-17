@@ -15,17 +15,19 @@ class Trending extends Controller {
 
 
   def index(countryString: String) = Action.async {
-    val trending = TrendingSearchTerms.get().map(_.toList).map{list =>
-      list.map{case (country, terms) =>
+    val trending = TrendingSearchTerms.get().map(_.toList)
+      .flatMap{list =>
+      Future.sequence(list.flatMap{case (country, terms) =>
+        if(country.equals(countryString)){
+          Some(Future.sequence(terms.map { term =>
+            google.getImage(s"https://www.google.com?q=$term")
+              .map(result => result.report.nonEmpty).map(bool => TermResult(term, bool))
+          }).map(list => CountryResult(country, list)))
+    }else{
+          None
+        }
 
-      Future.sequence(terms.map{term =>
-        google.getImage(s"https://www.google.com?q=$term")
-        .map(result => result.report.nonEmpty).map(bool => TermResult(term, bool))
-      }).map(list => CountryResult(country, list))
-
-    }}
-
-
+      })}
 
     trending.map(Ok(_))
   }
