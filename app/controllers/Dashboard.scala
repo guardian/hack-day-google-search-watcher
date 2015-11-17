@@ -11,7 +11,7 @@ class Dashboard extends Controller {
 
   def index(query: String) = Action.async {
     val futureResult = google.getImage(s"https://www.google.com?q=$query")
-    futureResult.map(result => Ok(views.html.dashboard(result.image)))
+    futureResult.map(result => Ok(views.html.dashboard(query, result)))
   }
 
 }

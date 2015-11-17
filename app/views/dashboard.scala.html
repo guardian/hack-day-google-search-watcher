@@ -1,17 +1,17 @@
-@(image: String)
+@(term: String, result: GoogleResult)
 @main("Dashboard") {
 
     <section>
 
     <dl id="summary">
         <dt>Search term</dt>
-        <dd>Paris</dd>
+        <dd>@term</dd>
         <dt>Region</dt>
         <dd>UK</dd>
     </dl>
     </section>
 
-    <img src="data:image/png;base64,@image"/>
+    <img height="420" width="700" src="data:image/png;base64,@result.image"/>
 
     <section id="current-view">
         <h2>Current View</h2>
