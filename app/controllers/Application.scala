@@ -25,7 +25,12 @@ class Application extends Controller {
     image map { result => Ok(Json.toJson(result)) }
   }
 
-  def index = Action.async {
-    words.getAll map { words => Ok(views.html.index(words.map(_.query)))}
+  def index(country: String) = Action.async {
+    val countryResult = Trending.getCountryResult(country)
+    words.getAll flatMap { words => countryResult.map(result => Ok(views.html.index(result)))}
+  }
+
+  def countries() = Action.async{
+    TrendingSearchTerms.getListOfCountries().map(list => Ok(views.html.countryTrending(list)))
   }
 }

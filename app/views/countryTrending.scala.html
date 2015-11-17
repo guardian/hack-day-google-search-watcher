@@ -1,0 +1,13 @@
+@(countries: List[String])
+
+@main("Google Search Watcher") {
+
+    <section>
+        <ul>
+            @for( country <- countries){
+                <li><a href="/?country=@country" >@country</a></li>
+            }
+
+        </ul>
+    </section>
+}
