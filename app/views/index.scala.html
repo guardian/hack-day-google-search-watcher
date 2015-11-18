@@ -48,10 +48,10 @@
         <ul>
         @for(word <- words) {
             <li>
-                <p><a href="/dashboard?q=@word._2">@word._2</a></p>
                 <form action="/remove-watch" method="post">
+                    <a href="/dashboard?q=@word._2">@word._2</a>
                     <input type="hidden" name="id" value="@word._1">
-                    <input type="submit" value="Remove">
+                    <input type="submit" value="-">
                 </form>
             </li>
         }
