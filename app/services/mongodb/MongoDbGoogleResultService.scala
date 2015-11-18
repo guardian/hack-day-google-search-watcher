@@ -13,7 +13,7 @@ class MongoDbGoogleResultService extends GoogleResultService with MongoDbConnect
   private val collection = db("results")
 
   private def fromCursor(cursor: MongoCursor) = for {
-    doc <- collection.find().toList
+    doc <- cursor.toList
     tld <- doc.getAs[String]("tld")
     term <- doc.getAs[String]("term")
     image <- doc.getAs[String]("image")
@@ -37,8 +37,8 @@ class MongoDbGoogleResultService extends GoogleResultService with MongoDbConnect
   }
 
   def getByTerm(term: SearchTerm) = Future(fromCursor(
-    collection.find(DBObject("term" -> term.query, "tld" -> term.tld))
-  ).sortBy(DateTime.now().getMillis - _.googleResult.time.getMillis))
+    collection.find(DBObject("term" -> term.query, "tld" -> term.tld)).sort(DBObject("time" -> -1))
+  ))
 
   def store(result: SearchTermResult) = {
     collection.insert(toDocument(result))

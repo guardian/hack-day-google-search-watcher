@@ -51,7 +51,6 @@ class Application extends Controller {
   def term(term: String, tld: String) = Action.async {
     for {
       results <- results.getByTerm(SearchTerm(tld, term))
-      hi = println(results.head.googleResult.report)
     } yield Ok(views.html.dashboard(results))
   }
 
