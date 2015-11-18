@@ -8,4 +8,5 @@ trait GoogleResultService
   def store(result: SearchTermResult): Unit
   def getAll: Future[Seq[SearchTermResult]]
   def getByTerm(term: SearchTerm): Future[Seq[SearchTermResult]]
+  def getAllTermsWithResults: Future[Seq[SearchTerm]]
 }
