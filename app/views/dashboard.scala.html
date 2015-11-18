@@ -13,13 +13,19 @@
 
   <section id="current-view">
     <h2>Current results (@latestResult.googleResult.time.toString(DateTimeFormat.forPattern("HH:mm, dd/MM")))</h2>
-    @latestResult.googleResult.report.map { link =>
-      <div class="ranks">
-        <div><i class="fa fa-trophy rank-@link.rank">@link.rank</i></div>
-        <div class="indented"><a href="@link.href">@{views.Truncator.truncateAtSpace(link.title, 70)}</a></div>
-        <span style="float: right">@link.hostname</span>
-      </div>
-      <div style="clear : both"></div>
+    <table>
+
+      @latestResult.googleResult.report.map { link =>
+      <tr class="ranks">
+        <td><i class="fa fa-trophy rank-@link.rank">@link.rank</i></td>
+        <td><a href="@link.href">@{views.Truncator.truncateAtSpace(link.title, 70)}</a></td>
+        <td class="source">@link.hostname</td>
+      </tr>
     }
+    </table>
   </section>
+
+    <section id="history">
+
+    </section>
 }

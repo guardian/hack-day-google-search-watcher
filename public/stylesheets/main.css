@@ -84,15 +84,16 @@ h2 {
 
 table {
     border-collapse: collapse;
+    width: 100%;
 }
 
 td {
     vertical-align: text-top;
-    padding: 0 0.5em;
+    padding: 0.5em;
 }
 
-tbody td {
-    border-top: 1px #dfdfdf solid;
+td.source {
+    text-align: right;
 }
 
 dt {
@@ -148,12 +149,6 @@ sup, sub {
     color: saddlebrown;
 }
 
-
-/*
-I am sorry about this following CSS
-but I don't have time to do this properly
-*/
-
 a {
     color: #005689;
     text-decoration: none;
@@ -161,18 +156,4 @@ a {
 
 a:hover {
     text-decoration: underline;
-}
-
-.ranks > div {
-    float: left;
-    margin-left: 5px;
-    line-height: 24px;
-}
-
-.ranks > div.indented {
-    margin-left: 40px;
-}
-
-#current-view {
-    padding-bottom: 15px;
 }
