@@ -14,7 +14,7 @@ class GoogleResultFetcher(implicit e: ExecutionContext) {
 
     driver.get(url)
     driver.getKeyboard.pressKey(ENTER)
-    Thread sleep 1000
+    Thread sleep 1500
 
     val ss = driver.getScreenshotAs(BASE64)
     println(ss)
