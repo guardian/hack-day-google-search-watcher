@@ -50,11 +50,12 @@ nav a {
     text-decoration: none;
 }
 
+#content {
+    position: relative;
+}
+
 form#switch_country {
-    position: absolute;
-    right: 10px;
-    top: 0;
-    padding: 1em 0;
+    text-align: right;
 }
 
 section {
@@ -113,4 +114,17 @@ dd {
 dd:after {
     content: "\A";
     white-space: pre;
+}
+
+#trending {
+    width: 425px;
+}
+
+#watch-list {
+    width: 425px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-top: 0;
+    height: 100%;
 }
