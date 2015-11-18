@@ -22,8 +22,7 @@ object Trending {
         Future.sequence(list.flatMap { case (country, terms) =>
           if (country.equals(countryString)) {
             Some(Future.sequence(terms.map { term =>
-              google.getResults(s"https://www.google.com?q=$term")
-                .map(result => containsGuardian(result.report)).map(bool => TermResult(term, bool))
+              inTopBox(term).map(bool => TermResult(term, bool))
             }).map(list => CountryResult(country, list)))
           } else {
             None
@@ -31,6 +30,12 @@ object Trending {
 
         })
       }.map{_.head}
+  }
+
+  def inTopBox(term: String): Future[Boolean] = {
+    Future(math.random < 0.25)
+//    google.getResults(s"https://www.google.com?q=$term")
+//      .map(result => containsGuardian(result.report))
   }
 
 }

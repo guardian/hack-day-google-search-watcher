@@ -42,8 +42,8 @@ class Application extends Controller {
     for {
       watchList <- words.getAll
       countries <- TrendingSearchTerms.getListOfCountries()
-      //countryResult <- Trending.getCountryResult(country)
-    } yield Ok(views.html.index(watchList.map{a =>(a.id, a.searchTerm.query)}, CountryResult(country, Nil), countries))
+      countryResult <- Trending.getCountryResult(country)
+    } yield Ok(views.html.index(watchList.map{a =>(a.id, a.searchTerm.query)}, countryResult, countries))
   }
 
   def term(term: String, tld: String) = Action.async {
