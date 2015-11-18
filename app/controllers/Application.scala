@@ -38,12 +38,14 @@ class Application extends Controller {
     Redirect("/")
   }
 
+
   def index(country: String) = Action.async {
     for {
       watchList <- words.getAll
       countries <- TrendingSearchTerms.getListOfCountries()
       countryResult <- Trending.getCountryResult(country)
-    } yield Ok(views.html.index(watchList.map{a =>(a.id, a.searchTerm.query)}, countryResult, countries))
+    } yield Ok(views.html.index(watchList.map{a =>(a.id, a.searchTerm.query)}, countryResult, countries,
+      tldMapping.getOrElse(country, "com")))
   }
 
   def term(term: String, tld: String) = Action.async {
@@ -51,4 +53,15 @@ class Application extends Controller {
       results <- results.getByTerm(SearchTerm(tld, term))
     } yield Ok(results.toString())
   }
+
+  val tldMapping = Map("united_kingdom" -> "co.uk",
+  "united_states" -> "com",
+  "romania" -> "ro",
+  "finland" -> "fi",
+  "portugal" -> "po",
+  "memxico" -> "mx",
+  "egypt" -> "eg",
+  "brazil" -> "bz",
+  "india" -> "in",
+  "malaysia" -> "my")
 }
