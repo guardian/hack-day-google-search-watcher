@@ -29,13 +29,13 @@ class Application extends Controller {
   def addWatch() = Action { implicit request =>
     val id = AddWatchWord.bindFromRequest().get
     words.add(id)
-    Ok("Done")
+    Redirect("/")
   }
 
   def removeWatch() = Action { implicit request =>
     val term = RemoveWatchWord.bindFromRequest().get
     words.removeById(term)
-    Ok("done")
+    Redirect("/")
   }
 
   def index(country: String) = Action.async {
