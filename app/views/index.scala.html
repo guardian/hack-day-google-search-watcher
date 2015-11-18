@@ -28,7 +28,7 @@
                 }
                     <input type="hidden" name="tld" value="@tld">
                     <input type="hidden" name="term" value="@tr.term">
-                    <input type="submit" value=">>">
+                    <span class="right"><input type="submit" value=">>"></span>
                 </form>
             </li>
         }
@@ -49,7 +49,7 @@
                 <form action="/remove-watch" method="post">
                   <a href="/term?term=@{word._2}&tld=@{word._1}">@word._2</a>
                     <input type="hidden" name="id" value="@word._3">
-                    <input type="submit" value="-">
+                    <span class="right"><input type="submit" value="-"></span>
                 </form>
               </li>
               }
@@ -58,7 +58,12 @@
       <ul class="termList">
       @for(term <- allTerms) {
         <li>
-            <a href="/term?term=@term.query&tld=@term.tld">@term.query</a>
+          <form action="/add-watch" method="POST">
+            <a href="/term?term=@{term.query}&tld=@{term.tld}">@term.query</a>
+          <input type="hidden" name="tld" value="@term.tld">
+          <input type="hidden" name="term" value="@term.query">
+          <span class="right"><input type="submit" value="^"></span>
+          </form>
         </li>
       }
       </ul>
