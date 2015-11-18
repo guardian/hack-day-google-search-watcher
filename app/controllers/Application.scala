@@ -41,7 +41,6 @@ class Application extends Controller {
   def index(country: String) = Action.async {
     for {
       watchList <- words.getAll
-      hi = println(watchList)
       //countryResult <- Trending.getCountryResult(country)
     } yield Ok(views.html.index(watchList.map{a =>(a.id, a.searchTerm.query)}, CountryResult("GB", Nil)))
   }
