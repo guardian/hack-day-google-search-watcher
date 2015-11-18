@@ -1,3 +1,5 @@
+import java.net.URI
+
 import org.joda.time.DateTime
 
 package object models {
@@ -5,6 +7,7 @@ package object models {
     def source: String = {
       href.split('/')(2)
     }
+    def hostname = new URI(href).getHost
   }
   case class SearchTerm(tld: String, query: String)
   case class SavedSearchTerm(id: String, searchTerm: SearchTerm)
