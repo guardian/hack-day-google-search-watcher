@@ -2,7 +2,7 @@
 @(latestResult: SearchTermResult)
 @main("Dashboard") {
 
-    <section id="summary" style="max-height: 70px">
+    <section id="summary" style="max-height : 70 px">
         <dl>
             <dt>Search term</dt>
             <dd>@latestResult.searchTerm.query</dd>
@@ -11,21 +11,63 @@
         </dl>
     </section>
 
-  <section id="current-view">
-    <h2>Current results (@latestResult.googleResult.time.toString(DateTimeFormat.forPattern("HH:mm, dd/MM")))</h2>
-    <table>
+    <section id="current-view">
+        <h2>Current results (@latestResult.googleResult.time.toString(DateTimeFormat.forPattern("HH:mm, dd/MM")))</h2>
+        <table>
 
-      @latestResult.googleResult.report.map { link =>
-      <tr class="ranks">
-        <td><i class="fa fa-trophy rank-@link.rank">@link.rank</i></td>
-        <td><a href="@link.href">@{views.Truncator.truncateAtSpace(link.title, 70)}</a></td>
-        <td class="source">@link.hostname</td>
-      </tr>
-    }
-    </table>
-  </section>
+        @latestResult.googleResult.report.map { link =>
+            <tr class="ranks">
+                <td><i class="fa fa-trophy rank-@link.rank">@link.rank</i></td>
+                <td><a href="@link.href">@{
+                    views.Truncator.truncateAtSpace(link.title, 70)
+                }</a></td>
+                <td class="source">@link.hostname</td>
+            </tr>
+        }
+        </table>
+    </section>
 
     <section id="history">
+        <h2>Our stories</h2>
 
+        <table>
+            <tbody>
+
+            <tr>
+                <td rowspan="3"><a href="http://www.theguardian.com/world/live/2015/nov/18/paris-attacks-police-hunt-ninth-suspect-as-germany-on-alert-after-hanover-bomb-threat-live">Paris attacks: deadly police raid in St-Denis is over – latest news</a></td>
+                <td><i class="fa fa-trophy rank-2">13:46</i></td>
+                <td rowspan="3" class="graph"><img alt="ophan traffic" width="250" src="@routes.Assets.versioned("images/graph.jpg")">
+                </td>
+            </tr>
+            <tr>
+                <td><i class="fa fa-trophy rank-1">11:55</i></td>
+            </tr>
+            <tr>
+                <td><i class="fa fa-trophy rank-3">10:06</i></td>
+            </tr>
+            </tbody>
+
+            <tbody>
+
+            <tr>
+                <td rowspan="2"><a href="http://www.theguardian.com/world/live/2015/nov/18/paris-attacks-police-hunt-ninth-suspect-as-germany-on-alert-after-hanover-bomb-threat-live">Another story</a></td>
+                <td><i class="fa fa-trophy rank-2">13:46</i></td>
+                <td rowspan="2" class="graph"><img alt="ophan traffic" width="250" src="@routes.Assets.versioned("images/graph.jpg")"></td>
+            </tr>
+            <tr>
+                <td><i class="fa fa-trophy rank-3">11:55</i></td>
+            </tr>
+            </tbody>
+
+            <tbody>
+
+            <tr>
+                <td rowspan="1"><a href="http://www.theguardian.com/world/live/2015/nov/18/paris-attacks-police-hunt-ninth-suspect-as-germany-on-alert-after-hanover-bomb-threat-live">Yet another story</a></td>
+                <td><i class="fa fa-trophy rank-1">13:46</i></td>
+                <td rowspan="1" class="graph"><img alt="ophan traffic" width="250" src="@routes.Assets.versioned("images/graph.jpg")"></td>
+            </tr>
+            </tbody>
+
+        </table>
     </section>
 }
