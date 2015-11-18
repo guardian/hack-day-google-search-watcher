@@ -64,5 +64,6 @@ class Application extends Controller {
   "egypt" -> "eg",
   "brazil" -> "bz",
   "india" -> "in",
-  "malaysia" -> "my")
+  "malaysia" -> "my",
+  "austria" -> "at")
 }
