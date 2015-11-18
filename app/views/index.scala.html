@@ -2,10 +2,10 @@
 
 @main("Google Search Watcher") {
 
-    <section>
+    <section id="trending">
         <h2>Trending in @countryResult.country</h2>
         <form action="/" method="get" id="switch_country">
-            See trends in
+            <p>See trends in
             <select name="country">
             @for(country <- countries) {
                 @if(country == countryResult.country) {
@@ -15,32 +15,27 @@
                 }
             }
             </select>
-            <input type="submit" value=">>">
+            <input type="submit" value=">>"></p>
         </form>
+
         <ul>
         @for(tr <- countryResult.termResults) {
             <li>
                 <form action="/add-watch" method="POST">
                 @tr.term
                 @if(tr.inTopBox) {
-                    top box
+                    <sup title="Guardian article appears in the top box">g</sup>
                 }
                     <input type="hidden" name="tld" value=@tld>
                     <input type="hidden" name="term" value="@tr.term">
-                    <input type="submit" value="+">
+                    <input type="submit" value=">>">
                 </form>
             </li>
         }
         </ul>
-        <form action="/add-watch" method="POST">
-            Watch
-            <input type="text" name="term" placeholder="Search term">
-            <input type="hidden" name="tld" value=@tld>
-            <input type="submit" value=">>">
-        </form>
     </section>
 
-    <section>
+    <section id="watch-list">
         <h2>Watch list</h2>
         <ul>
         @for(word <- words) {
