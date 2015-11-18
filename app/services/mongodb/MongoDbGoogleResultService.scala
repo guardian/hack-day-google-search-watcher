@@ -36,9 +36,21 @@ class MongoDbGoogleResultService extends GoogleResultService with MongoDbConnect
     )
   }
 
-  def getByTerm(term: SearchTerm) = Future(fromCursor(
-    collection.find(DBObject("term" -> term.query, "tld" -> term.tld)).sort(DBObject("time" -> -1))
-  ))
+  def getByTerm(term: SearchTerm) = Future(getByTermRecursive(term, 0))
+
+  val maxTries = 100
+  def getByTermRecursive(term: SearchTerm, prevTries: Int): List[models.SearchTermResult] ={
+    if (prevTries == maxTries)
+      throw new Exception("Exceeded max tries getting results for search term")
+    val result = fromCursor(
+      collection.find(DBObject("term" -> term.query, "tld" -> term.tld)).sort(DBObject("time" -> -1)))
+    if (result.isEmpty){
+      Thread.sleep(1000)
+      getByTermRecursive(term, prevTries+1)
+    }else{
+      result
+    }
+  }
 
   def store(result: SearchTermResult) = {
     collection.insert(toDocument(result))
