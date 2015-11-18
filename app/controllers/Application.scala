@@ -51,4 +51,6 @@ class Application extends Controller {
       results <- results.getByTerm(SearchTerm(tld, term))
     } yield Ok(results.toString())
   }
+
+  val tldMapping = Map("united_kingdom" -> ".co.uk")
 }
