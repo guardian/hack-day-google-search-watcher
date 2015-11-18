@@ -1,4 +1,4 @@
-@(words: Seq[(String, String)], countryResult: CountryResult, countries: List[String])
+@(words: Seq[(String, String)], countryResult: CountryResult, countries: List[String], tld: String)
 
 @main("Google Search Watcher") {
 
@@ -18,48 +18,24 @@
             <input type="submit" value=">>">
         </form>
         <ul>
-
-                @for(tr <- countryResult.termResults){
-                    @if(tr.inTopBox){
-                        <li><em>@tr.term  top box </em> </li>
-                        <form action="/add-watch" method="POST">
-                            <select name="tld">
-                                <option value="com">.com</option>
-                                <option value="co.uk">.co.uk</option>
-                                <option value="fr">.fr</option>
-                                <option value="nl">.nl</option>
-                                <option value="de">.de</option>
-                            </select>
-                            <input type="hidden" name="term" value="@tr.term">
-                            <input type="submit" value="Watch">
-                        </form>
-                    } else {
-                        <li>@tr.term </li>
-                        <form action="/add-watch" method="POST">
-                            <select name="tld">
-                                <option value="com">.com</option>
-                                <option value="co.uk">.co.uk</option>
-                                <option value="fr">.fr</option>
-                                <option value="nl">.nl</option>
-                                <option value="de">.de</option>
-                            </select>
-                            <input type="hidden" name="term" value="@tr.term">
-                            <input type="submit" value="Watch">
-                        </form>
-                    }
+        @for(tr <- countryResult.termResults) {
+            <li>
+                <form action="/add-watch" method="POST">
+                @tr.term
+                @if(tr.inTopBox) {
+                    top box
+                }
+                    <input type="hidden" name="tld" value=@tld>
+                    <input type="hidden" name="term" value="@tr.term">
+                    <input type="submit" value="+">
+                </form>
+            </li>
         }
         </ul>
         <form action="/add-watch" method="POST">
             Watch
             <input type="text" name="term" placeholder="Search term">
-            on
-            <select name="tld">
-                <option value="com">.com</option>
-                <option value="co.uk">.co.uk</option>
-                <option value="fr">.fr</option>
-                <option value="nl">.nl</option>
-                <option value="de">.de</option>
-            </select>
+            <input type="hidden" name="tld" value=@tld>
             <input type="submit" value=">>">
         </form>
     </section>
