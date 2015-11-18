@@ -38,7 +38,7 @@ class MongoDbGoogleResultService extends GoogleResultService with MongoDbConnect
 
   def getByTerm(term: SearchTerm) = Future(fromCursor(
     collection.find(DBObject("term" -> term.query, "tld" -> term.tld))
-  ))
+  ).sortBy(DateTime.now().getMillis - _.googleResult.time.getMillis))
 
   def store(result: SearchTermResult) = {
     collection.insert(toDocument(result))
