@@ -173,10 +173,21 @@ ul {
 }
 
 .termList {
+    padding-bottom: 20px;
     margin-left: 10px;
 }
 
-.termList input[type="submit"] {
-    clear: both;
-    float: right;
+.termList li > * {
+    line-height: 36px; /*this seems crazy*/
 }
+
+.termList li {
+    overflow: auto;
+    border-bottom: 1px solid #eee;
+}
+
+.termList .right {
+    float: right;
+    line-height: 36px;
+}
+
