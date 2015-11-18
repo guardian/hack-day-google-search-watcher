@@ -28,7 +28,7 @@ class MongoDbGoogleResultService extends GoogleResultService with MongoDbConnect
   private def toDocument(r: SearchTermResult) = {
     val report = r.googleResult.report map {r => DBObject("href" -> r.href, "rank" -> r.rank, "title" -> r.title)}
     DBObject(
-      "image" -> "",
+      "image" -> r.googleResult.image,
       "tld" -> r.searchTerm.tld,
       "term" -> r.searchTerm.query,
       "time" -> r.googleResult.time.getMillis,
