@@ -48,7 +48,7 @@
             @for(word <- words) {
               <li>
                 <form action="/remove-watch" method="post">
-                    <a href="/dashboard?q=@word._2">@word._2</a>
+                  <a href="/term?term=@{word._2}&tld=@{word._1}">@word._2</a>
                     <input type="hidden" name="id" value="@word._1">
                     <input type="submit" value="-">
                 </form>
