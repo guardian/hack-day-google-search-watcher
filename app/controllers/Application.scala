@@ -1,6 +1,7 @@
 package controllers
 import actors.GoogleStorer
 import akka.actor.Props
+import models.SearchTerm
 import play.api.libs.concurrent.Execution.Implicits._
 import play.api.libs.json._
 import play.api.mvc._
@@ -49,10 +50,9 @@ class Application extends Controller {
     TrendingSearchTerms.getListOfCountries().map(list => Ok(views.html.countryTrending(list)))
   }
 
-  def term(id: String) = Action.async {
+  def term(term: String, tld: String) = Action.async {
     for {
-      term <- words.getById(id)
-      results <- results.getByTerm(term)
+      results <- results.getByTerm(SearchTerm(tld, term))
     } yield Ok(results.toString())
   }
 }
