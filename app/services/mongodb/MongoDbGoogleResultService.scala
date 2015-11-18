@@ -45,4 +45,7 @@ class MongoDbGoogleResultService extends GoogleResultService with MongoDbConnect
   }
 
   def getAll = Future(fromCursor(collection.find()))
+  override def getAllTermsWithResults: Future[Seq[SearchTerm]] = for {
+    terms <- getAll
+  } yield terms.map(_.searchTerm).distinct
 }

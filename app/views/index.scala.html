@@ -1,4 +1,4 @@
-@(words: Seq[(String, String)], countryResult: CountryResult, countries: List[String], tld: String)
+@(allTerms: Seq[SearchTerm], words: Seq[(String, String)], countryResult: CountryResult, countries: List[String], tld: String)
 
 @main("Google Search Watcher") {
 
@@ -43,7 +43,7 @@
     </section>
 
     <section id="watch-list">
-        <h2>Watch list</h2>
+        <h2>Currently watching</h2>
           <ul>
             @for(word <- words) {
               <li>
@@ -52,8 +52,16 @@
                     <input type="hidden" name="id" value="@word._1">
                     <input type="submit" value="-">
                 </form>
-            </li>
-        }
-        </ul>
+              </li>
+              }
+          </ul>
+      <h2>Previous watches</h2>
+      <ul>
+      @for(term <- allTerms) {
+        <li>
+            <a href="/term?term=@term.query&tld=@term.tld">@term.query</a>
+        </li>
+      }
+      </ul>
     </section>
 }

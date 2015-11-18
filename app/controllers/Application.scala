@@ -42,9 +42,10 @@ class Application extends Controller {
   def index(country: String) = Action.async {
     for {
       watchList <- words.getAll
+      allTerms <- results.getAllTermsWithResults
       countries <- TrendingSearchTerms.getListOfCountries()
       countryResult <- Trending.getCountryResult(country)
-    } yield Ok(views.html.index(watchList.map{a =>(a.id, a.searchTerm.query)}, countryResult, countries,
+    } yield Ok(views.html.index(allTerms, watchList.map{a =>(a.id, a.searchTerm.query)}, countryResult, countries,
       tldMapping.getOrElse(country, "com")))
   }
 
