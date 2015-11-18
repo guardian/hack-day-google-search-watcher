@@ -51,7 +51,7 @@ class Application extends Controller {
   def term(term: String, tld: String) = Action.async {
     for {
       results <- results.getByTerm(SearchTerm(tld, term))
-    } yield Ok(views.html.dashboard(results))
+    } yield Ok(views.html.dashboard(results.head))
   }
 
   val tldMapping = Map("united_kingdom" -> "co.uk",
