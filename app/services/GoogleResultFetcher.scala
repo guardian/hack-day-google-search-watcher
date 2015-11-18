@@ -17,7 +17,6 @@ class GoogleResultFetcher(implicit e: ExecutionContext) {
     Thread sleep 1500
 
     val ss = driver.getScreenshotAs(BASE64)
-    println(ss)
     val links = driver.findElementsByXPath("//text()[contains(.,'In the news')]/../..//div[cite]/..//a")
 
     val report = links.toList.zipWithIndex.collect {
