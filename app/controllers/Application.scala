@@ -42,7 +42,7 @@ class Application extends Controller {
     for {
       watchList <- words.getAll
       //countryResult <- Trending.getCountryResult(country)
-    } yield Ok(views.html.index(watchList.map{a =>(a.id, a.searchTerm.query)}, CountryResult("GB", Nil)))
+    } yield Ok(views.html.index(watchList.map{a =>(a.searchTerm.tld, a.searchTerm.query)}, CountryResult("GB", Nil)))
   }
 
   def countries() = Action.async{
@@ -52,6 +52,7 @@ class Application extends Controller {
   def term(term: String, tld: String) = Action.async {
     for {
       results <- results.getByTerm(SearchTerm(tld, term))
-    } yield Ok(results.toString())
+      hi = println(results.head.googleResult.report)
+    } yield Ok(views.html.dashboard(results))
   }
 }

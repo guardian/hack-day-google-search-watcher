@@ -20,7 +20,7 @@ class MongoDbGoogleResultService extends GoogleResultService with MongoDbConnect
     time <- doc.getAs[Long]("time")
     report <- doc.getAs[Seq[DBObject]]("report")
     reportReal = report map { o =>
-      InTheNewsLink(o.as[Int]("rank"), o.as[String]("href"), o.as[String]("title"))
+      InTheNewsLink(o.as[Int]("rank"), o.as[String]("title"), o.as[String]("href"))
     }
   } yield SearchTermResult(SearchTerm(tld, term), GoogleResult(image, new DateTime(time), reportReal))
 

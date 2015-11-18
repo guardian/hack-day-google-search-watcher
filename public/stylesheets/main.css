@@ -114,3 +114,44 @@ dd:after {
     content: "\A";
     white-space: pre;
 }
+
+.rank-1 {
+    color: goldenrod;
+}
+
+.rank-2 {
+    color: darkgray;
+}
+
+.rank-3 {
+    color: saddlebrown;
+}
+
+
+/*
+I am sorry about this following CSS
+but I don't have time to do this properly
+*/
+
+a {
+    color: #005689;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.ranks > div {
+    float: left;
+    margin-left: 5px;
+    line-height: 24px;
+}
+
+.ranks > div.indented {
+    margin-left: 40px;
+}
+
+#current-view {
+    padding-bottom: 15px;
+}
