@@ -157,3 +157,13 @@ a {
 a:hover {
     text-decoration: underline;
 }
+
+ul {
+    margin-left: 0;
+    padding-left: 0;
+    list-style-type: none;
+}
+
+.termList {
+    margin-left: 10px;
+}
