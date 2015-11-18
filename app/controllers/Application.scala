@@ -42,16 +42,17 @@ class Application extends Controller {
   def index(country: String) = Action.async {
     for {
       watchList <- words.getAll
+      allTerms <- results.getAllTermsWithResults
       countries <- TrendingSearchTerms.getListOfCountries()
       countryResult <- Trending.getCountryResult(country)
-    } yield Ok(views.html.index(watchList.map{a =>(a.id, a.searchTerm.query)}, countryResult, countries,
+    } yield Ok(views.html.index(allTerms, watchList.map{a =>(a.searchTerm.tld, a.searchTerm.query, a.id)}, countryResult, countries,
       tldMapping.getOrElse(country, "com")))
   }
 
   def term(term: String, tld: String) = Action.async {
     for {
       results <- results.getByTerm(SearchTerm(tld, term))
-    } yield Ok(results.toString())
+    } yield Ok(views.html.dashboard(results.head))
   }
 
   val tldMapping = Map("united_kingdom" -> "co.uk",

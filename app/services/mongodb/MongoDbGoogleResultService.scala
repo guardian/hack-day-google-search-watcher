@@ -13,14 +13,14 @@ class MongoDbGoogleResultService extends GoogleResultService with MongoDbConnect
   private val collection = db("results")
 
   private def fromCursor(cursor: MongoCursor) = for {
-    doc <- collection.find().toList
+    doc <- cursor.toList
     tld <- doc.getAs[String]("tld")
     term <- doc.getAs[String]("term")
     image <- doc.getAs[String]("image")
     time <- doc.getAs[Long]("time")
     report <- doc.getAs[Seq[DBObject]]("report")
     reportReal = report map { o =>
-      InTheNewsLink(o.as[Int]("rank"), o.as[String]("href"), o.as[String]("title"))
+      InTheNewsLink(o.as[Int]("rank"), o.as[String]("title"), o.as[String]("href"))
     }
   } yield SearchTermResult(SearchTerm(tld, term), GoogleResult(image, new DateTime(time), reportReal))
 
@@ -28,7 +28,7 @@ class MongoDbGoogleResultService extends GoogleResultService with MongoDbConnect
   private def toDocument(r: SearchTermResult) = {
     val report = r.googleResult.report map {r => DBObject("href" -> r.href, "rank" -> r.rank, "title" -> r.title)}
     DBObject(
-      "image" -> "",
+      "image" -> r.googleResult.image,
       "tld" -> r.searchTerm.tld,
       "term" -> r.searchTerm.query,
       "time" -> r.googleResult.time.getMillis,
@@ -37,7 +37,7 @@ class MongoDbGoogleResultService extends GoogleResultService with MongoDbConnect
   }
 
   def getByTerm(term: SearchTerm) = Future(fromCursor(
-    collection.find(DBObject("term" -> term.query, "tld" -> term.tld))
+    collection.find(DBObject("term" -> term.query, "tld" -> term.tld)).sort(DBObject("time" -> -1))
   ))
 
   def store(result: SearchTermResult) = {
@@ -45,4 +45,7 @@ class MongoDbGoogleResultService extends GoogleResultService with MongoDbConnect
   }
 
   def getAll = Future(fromCursor(collection.find()))
+  override def getAllTermsWithResults: Future[Seq[SearchTerm]] = for {
+    terms <- getAll
+  } yield terms.map(_.searchTerm).distinct
 }

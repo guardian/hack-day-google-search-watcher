@@ -1,4 +1,4 @@
-@(words: Seq[(String, String)], countryResult: CountryResult, countries: List[String], tld: String)
+@(allTerms: Seq[SearchTerm], words: Seq[(String, String, String)], countryResult: CountryResult, countries: List[String], tld: String)
 
 @main("Google Search Watcher") {
 
@@ -18,7 +18,7 @@
             <input type="submit" value=">>"></p>
         </form>
 
-        <ul>
+        <ul class="termList">
         @for(tr <- countryResult.termResults) {
             <li>
                 <form action="/add-watch" method="POST">
@@ -26,34 +26,41 @@
                 @if(tr.inTopBox) {
                     <sup title="Guardian article appears in the top box">g</sup>
                 }
-                    <input type="hidden" name="tld" value=@tld>
+                    <input type="hidden" name="tld" value="@tld">
                     <input type="hidden" name="term" value="@tr.term">
                     <input type="submit" value=">>">
                 </form>
             </li>
         }
         </ul>
-
-        <form action="/add-watch" method="POST">
-            <p>Watch
-            <input type="text" name="term" placeholder="Search term">
-                <input type="hidden" name="tld" value=@tld>
-            <input type="submit" value=">>"></p>
-        </form>
     </section>
 
     <section id="watch-list">
-        <h2>Watch list</h2>
-        <ul>
-        @for(word <- words) {
-            <li>
+        <h2>Currently watching</h2>
+        <form action="/add-watch" method="POST" class="termList">
+          <label for="term">Watch</label>
+            <input type="text" name="term" placeholder="Search term">
+            <input type="hidden" name="tld" value="@tld">
+            <input type="submit" value="+">
+        </form>
+          <ul class="termList">
+            @for(word <- words) {
+              <li>
                 <form action="/remove-watch" method="post">
-                    <a href="/dashboard?q=@word._2">@word._2</a>
-                    <input type="hidden" name="id" value="@word._1">
+                  <a href="/term?term=@{word._2}&tld=@{word._1}">@word._2</a>
+                    <input type="hidden" name="id" value="@word._3">
                     <input type="submit" value="-">
                 </form>
-            </li>
-        }
-        </ul>
+              </li>
+              }
+          </ul>
+      <h2>Previous watches</h2>
+      <ul class="termList">
+      @for(term <- allTerms) {
+        <li>
+            <a href="/term?term=@term.query&tld=@term.tld">@term.query</a>
+        </li>
+      }
+      </ul>
     </section>
 }

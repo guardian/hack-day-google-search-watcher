@@ -1,169 +1,74 @@
-@(term: String, result: GoogleResult)
+@import org.joda.time.format.DateTimeFormat
+@(latestResult: SearchTermResult)
 @main("Dashboard") {
 
     <section id="summary">
         <dl>
             <dt>Search term</dt>
-            <dd>@term</dd>
+            <dd>@latestResult.searchTerm.query</dd>
             <dt>Region</dt>
-            <dd>UK</dd>
+            <dd>@latestResult.searchTerm.tld</dd>
         </dl>
-        <img height="420" width="700" src="data:image/png;base64,@result.image">
+      <img src="data:image/png;base64,@latestResult.googleResult.image" height="400">
     </section>
-
 
     <section id="current-view">
-        <h2>Current View</h2>
-
+        <h2>Current results (@latestResult.googleResult.time.toString(DateTimeFormat.forPattern("HH:mm, dd/MM")))</h2>
         <table>
 
-            <thead>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td>Time in pos</td>
-                </tr>
-            </thead>
-
-            <tbody>
-                @for(r <- result.report) {
-                    <tr>
-                        <td>Pos @r.rank</td>
-                        <td>
-                            <p><a href="@r.href">@r.title</a></p>
-                            <p><a href="@r.href">@r.href</a></p>
-                            <p>@r.source</p>
-                        </td>
-                        <td>45 mins</td>
-                    </tr>
-                }
-            </tbody>
+        @latestResult.googleResult.report.map { link =>
+            <tr class="ranks">
+                <td><i class="fa fa-trophy rank-@link.rank">@link.rank</i></td>
+                <td><a href="@link.href">@{
+                    views.Truncator.truncateAtSpace(link.title, 70)
+                }</a></td>
+                <td class="source">@link.hostname</td>
+            </tr>
+        }
         </table>
     </section>
 
-    <section id="guardians-performance">
-        <h2>Guardian’s Performance</h2>
+    <section id="history">
+        <h2>Our stories</h2>
 
         <table>
-
-            <thead>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td>Time in</td>
-                    <td>Time out</td>
-                    <td></td>
-                </tr>
-            </thead>
-
             <tbody>
-                <tr>
-                    <td rowspan="3">
-                        <p><a href="http://www.theguardian.com/world/ng-interactive/2015/nov/17/la-belle-equipe-paris-attacks-photographs">
-                            The scene at La Belle Équipe after the Paris attacks</a></p>
-                        <p><a href="http://www.theguardian.com/world/ng-interactive/2015/nov/17/la-belle-equipe-paris-attacks-photographs">
-                            http://www.theguardian.com/world/ng-interactive/2015/nov/17/la-belle-equipe-paris-attacks-photographs</a></p>
-                    </td>
-                    <td>Pos 1</td>
-                    <td>14:36</td>
-                    <td>-:-</td>
-                    <td rowspan="3">
-                        <img src="http://placekitten.com/g/150/60" width="150" height="60" alt="A kitten">
-                    </td>
-                </tr>
-                <tr>
-                    <td>Pos 2</td>
-                    <td>14:20</td>
-                    <td>14:36</td>
-                </tr>
-                <tr>
-                    <td>Pos 3</td>
-                    <td>-:-</td>
-                    <td>-:-</td>
-                </tr>
+
+            <tr>
+                <td rowspan="3"><a href="http://www.theguardian.com/world/live/2015/nov/18/paris-attacks-police-hunt-ninth-suspect-as-germany-on-alert-after-hanover-bomb-threat-live">Paris attacks: deadly police raid in St-Denis is over – latest news</a></td>
+                <td><i class="fa fa-trophy rank-2">13:46</i></td>
+                <td rowspan="3" class="graph"><img alt="ophan traffic" width="250" src="@routes.Assets.versioned("images/graph.jpg")">
+                </td>
+            </tr>
+            <tr>
+                <td><i class="fa fa-trophy rank-1">11:55</i></td>
+            </tr>
+            <tr>
+                <td><i class="fa fa-trophy rank-3">10:06</i></td>
+            </tr>
             </tbody>
 
             <tbody>
-                <tr>
-                    <td rowspan="3">
-                        <p><a href="http://www.theguardian.com/world/ng-interactive/2015/nov/17/la-belle-equipe-paris-attacks-photographs">
-                            The scene at La Belle Équipe after the Paris attacks</a></p>
-                        <p><a href="http://www.theguardian.com/world/ng-interactive/2015/nov/17/la-belle-equipe-paris-attacks-photographs">
-                            http://www.theguardian.com/world/ng-interactive/2015/nov/17/la-belle-equipe-paris-attacks-photographs</a></p>
-                    </td>
-                    <td>Pos 1</td>
-                    <td>14:36</td>
-                    <td>-:-</td>
-                    <td rowspan="3">
-                        <img src="http://placekitten.com/g/150/60" width="150" height="60" alt="A kitten">
-                    </td>
-                </tr>
-                <tr>
-                    <td>Pos 2</td>
-                    <td>14:20</td>
-                    <td>14:36</td>
-                </tr>
-                <tr>
-                    <td>Pos 3</td>
-                    <td>-:-</td>
-                    <td>-:-</td>
-                </tr>
+
+            <tr>
+                <td rowspan="2"><a href="http://www.theguardian.com/world/live/2015/nov/18/paris-attacks-police-hunt-ninth-suspect-as-germany-on-alert-after-hanover-bomb-threat-live">Another story</a></td>
+                <td><i class="fa fa-trophy rank-2">13:46</i></td>
+                <td rowspan="2" class="graph"><img alt="ophan traffic" width="250" src="@routes.Assets.versioned("images/graph.jpg")"></td>
+            </tr>
+            <tr>
+                <td><i class="fa fa-trophy rank-3">11:55</i></td>
+            </tr>
             </tbody>
 
             <tbody>
-                <tr>
-                    <td rowspan="3">
-                        <p><a href="http://www.theguardian.com/world/ng-interactive/2015/nov/17/la-belle-equipe-paris-attacks-photographs">
-                            The scene at La Belle Équipe after the Paris attacks</a></p>
-                        <p><a href="http://www.theguardian.com/world/ng-interactive/2015/nov/17/la-belle-equipe-paris-attacks-photographs">
-                            http://www.theguardian.com/world/ng-interactive/2015/nov/17/la-belle-equipe-paris-attacks-photographs</a></p>
-                    </td>
-                    <td>Pos 1</td>
-                    <td>14:36</td>
-                    <td>-:-</td>
-                    <td rowspan="3">
-                        <img src="http://placekitten.com/g/150/60" width="150" height="60" alt="A kitten">
-                    </td>
-                </tr>
-                <tr>
-                    <td>Pos 2</td>
-                    <td>14:20</td>
-                    <td>14:36</td>
-                </tr>
-                <tr>
-                    <td>Pos 3</td>
-                    <td>-:-</td>
-                    <td>-:-</td>
-                </tr>
+
+            <tr>
+                <td rowspan="1"><a href="http://www.theguardian.com/world/live/2015/nov/18/paris-attacks-police-hunt-ninth-suspect-as-germany-on-alert-after-hanover-bomb-threat-live">Yet another story</a></td>
+                <td><i class="fa fa-trophy rank-1">13:46</i></td>
+                <td rowspan="1" class="graph"><img alt="ophan traffic" width="250" src="@routes.Assets.versioned("images/graph.jpg")"></td>
+            </tr>
             </tbody>
 
-            <tbody>
-                <tr>
-                    <td rowspan="3">
-                        <p><a href="http://www.theguardian.com/world/ng-interactive/2015/nov/17/la-belle-equipe-paris-attacks-photographs">
-                            The scene at La Belle Équipe after the Paris attacks</a></p>
-                        <p><a href="http://www.theguardian.com/world/ng-interactive/2015/nov/17/la-belle-equipe-paris-attacks-photographs">
-                            http://www.theguardian.com/world/ng-interactive/2015/nov/17/la-belle-equipe-paris-attacks-photographs</a></p>
-                    </td>
-                    <td>Pos 1</td>
-                    <td>14:36</td>
-                    <td>-:-</td>
-                    <td rowspan="3">
-                        <img src="http://placekitten.com/g/150/60" width="150" height="60" alt="A kitten">
-                    </td>
-                </tr>
-                <tr>
-                    <td>Pos 2</td>
-                    <td>14:20</td>
-                    <td>14:36</td>
-                </tr>
-                <tr>
-                    <td>Pos 3</td>
-                    <td>-:-</td>
-                    <td>-:-</td>
-                </tr>
-            </tbody>
         </table>
     </section>
-
 }
