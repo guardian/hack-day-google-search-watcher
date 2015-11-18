@@ -13,8 +13,7 @@ class MongoDbGoogleResultService extends GoogleResultService with MongoDbConnect
   private val collection = db("results")
 
   private def fromCursor(cursor: MongoCursor) = for {
-    doc <- collection.find().toSeq
-    stuff = println(doc)
+    doc <- collection.find().toList
     tld <- doc.getAs[String]("tld")
     term <- doc.getAs[String]("term")
     image <- doc.getAs[String]("image")
