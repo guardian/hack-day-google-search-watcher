@@ -33,6 +33,13 @@
             </li>
         }
         </ul>
+
+        <form action="/add-watch" method="POST">
+            <p>Watch
+            <input type="text" name="term" placeholder="Search term">
+                <input type="hidden" name="tld" value=@tld>
+            <input type="submit" value=">>"></p>
+        </form>
     </section>
 
     <section id="watch-list">
