@@ -1,10 +1,11 @@
 package services
-import models.GoogleResult
+import models.{SearchTermResult, SearchTerm, GoogleResult}
 
 import scala.concurrent.Future
 
 trait GoogleResultService
 {
-  def store(result: GoogleResult): Unit
-  def getAll: Future[Seq[GoogleResult]]
+  def store(result: SearchTermResult): Unit
+  def getAll: Future[Seq[SearchTermResult]]
+  def getByTerm(term: SearchTerm): Future[Seq[SearchTermResult]]
 }
