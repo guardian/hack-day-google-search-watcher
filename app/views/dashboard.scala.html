@@ -11,10 +11,9 @@
         </dl>
     </section>
 
-  @results.map(_.googleResult).map { result =>
   <section id="current-view">
-    <h2>@result.time.toString(DateTimeFormat.forPattern("HH:mm, dd/MM"))</h2>
-    @result.report.map { link =>
+    <h2>Current results (@results.head.googleResult.time.toString(DateTimeFormat.forPattern("HH:mm, dd/MM")))</h2>
+    @results.head.googleResult.report.map { link =>
       <div class="ranks">
         <div><i class="fa fa-trophy rank-@link.rank">@link.rank</i></div>
         <div class="indented"><a href="@link.href">@{views.Truncator.truncateAtSpace(link.title, 70)}</a></div>
@@ -23,5 +22,4 @@
       <div style="clear : both"></div>
     }
   </section>
-  }
 }
