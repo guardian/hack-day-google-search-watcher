@@ -50,9 +50,9 @@ nav a {
     text-decoration: none;
 }
 
-nav form {
+form#switch_country {
     position: absolute;
-    right: 510px;
+    right: 10px;
     top: 0;
     padding: 1em 0;
 }
