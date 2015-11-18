@@ -8,5 +8,6 @@ package object models {
   }
   case class GoogleResult(image: String, time: DateTime, report: Seq[InTheNewsLink])
   case class SearchTerm(tld: String, query: String)
+  case class SavedSearchTerm(id: String, searchTerm: SearchTerm)
 
 }

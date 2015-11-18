@@ -9,6 +9,7 @@ import play.libs.Akka
 import services._
 import services.mongodb.{MongoDbWatchListService, MongoDbGoogleResultService}
 import scala.concurrent.duration._
+import forms._
 
 class Application extends Controller {
 
@@ -25,11 +26,24 @@ class Application extends Controller {
     image map { result => Ok(Json.toJson(result)) }
   }
 
+  def addWatch() = Action { implicit request =>
+    val id = AddWatchWord.bindFromRequest().get
+    words.add(id)
+    Ok("Done")
+  }
+
+  def removeWatch() = Action { implicit request =>
+    val term = RemoveWatchWord.bindFromRequest().get
+    words.removeById(term)
+    Ok("done")
+  }
+
   def index(country: String) = Action.async {
     for {
       watchList <- words.getAll
-      countryResult <- Trending.getCountryResult(country)
-    } yield Ok(views.html.index(watchList.map(_.query), countryResult))
+      hi = println(watchList)
+      //countryResult <- Trending.getCountryResult(country)
+    } yield Ok(views.html.index(watchList.map{a =>(a.id, a.searchTerm.query)}, CountryResult("GB", Nil)))
   }
 
   def countries() = Action.async{

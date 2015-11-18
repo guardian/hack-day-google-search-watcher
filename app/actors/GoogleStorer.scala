@@ -13,7 +13,7 @@ class GoogleStorer extends Actor {
   override def receive: Receive = {
     // the initial for-comprehension flatMap gets in the way here
     case _ => watchListService.getAll.map {list => list map {item =>
-      googleService.getResults(s"https://google.${item.tld}?q=${item.query}")
+      googleService.getResults(s"https://google.${item.searchTerm.tld}?q=${item.searchTerm.query}")
     }}
   }
 }
