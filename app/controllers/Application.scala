@@ -45,7 +45,7 @@ class Application extends Controller {
       allTerms <- results.getAllTermsWithResults
       countries <- TrendingSearchTerms.getListOfCountries()
       countryResult <- Trending.getCountryResult(country)
-    } yield Ok(views.html.index(allTerms, watchList.map{a =>(a.searchTerm.tld, a.searchTerm.query)}, countryResult, countries,
+    } yield Ok(views.html.index(allTerms, watchList.map{a =>(a.searchTerm.tld, a.searchTerm.query, a.id)}, countryResult, countries,
       tldMapping.getOrElse(country, "com")))
   }
 

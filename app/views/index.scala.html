@@ -1,4 +1,4 @@
-@(allTerms: Seq[SearchTerm], words: Seq[(String, String)], countryResult: CountryResult, countries: List[String], tld: String)
+@(allTerms: Seq[SearchTerm], words: Seq[(String, String, String)], countryResult: CountryResult, countries: List[String], tld: String)
 
 @main("Google Search Watcher") {
 
@@ -48,7 +48,7 @@
               <li>
                 <form action="/remove-watch" method="post">
                   <a href="/term?term=@{word._2}&tld=@{word._1}">@word._2</a>
-                    <input type="hidden" name="id" value="@word._1">
+                    <input type="hidden" name="id" value="@word._3">
                     <input type="submit" value="-">
                 </form>
               </li>
