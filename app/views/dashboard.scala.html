@@ -1,28 +1,31 @@
 @import org.joda.time.format.DateTimeFormat
-@(results: Seq[SearchTermResult])
+@(latestResult: SearchTermResult)
 @main("Dashboard") {
 
     <section id="summary" style="max-height: 70px">
         <dl>
             <dt>Search term</dt>
-            <dd>@results.head.searchTerm.query</dd>
+            <dd>@latestResult.searchTerm.query</dd>
             <dt>Region</dt>
-            <dd>@results.head.searchTerm.tld</dd>
+            <dd>@latestResult.searchTerm.tld</dd>
         </dl>
     </section>
 
-  @results.map(_.googleResult).map { result =>
   <section id="current-view">
-    <h2>@result.time.toString(DateTimeFormat.forPattern("HH:mm, dd/MM"))</h2>
-    @result.report.map { link =>
-      <div class="ranks">
-        <div><i class="fa fa-trophy rank-@link.rank"></i></div>
-        <div>@link.rank</div>
-        <div class="indented" style="max-width: 600px"><a href="@link.href">@{link.title}</a></div>
-        <span style="float: right">@link.hostname</span>
-      </div>
-      <div style="clear : both"></div>
+    <h2>Current results (@latestResult.googleResult.time.toString(DateTimeFormat.forPattern("HH:mm, dd/MM")))</h2>
+    <table>
+
+      @latestResult.googleResult.report.map { link =>
+      <tr class="ranks">
+        <td><i class="fa fa-trophy rank-@link.rank">@link.rank</i></td>
+        <td><a href="@link.href">@{views.Truncator.truncateAtSpace(link.title, 70)}</a></td>
+        <td class="source">@link.hostname</td>
+      </tr>
     }
+    </table>
   </section>
-  }
+
+    <section id="history">
+
+    </section>
 }
