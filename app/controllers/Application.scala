@@ -1,6 +1,7 @@
 package controllers
 import actors.GoogleStorer
 import akka.actor.Props
+import models.SearchTerm
 import play.api.libs.concurrent.Execution.Implicits._
 import play.api.libs.json._
 import play.api.mvc._
@@ -19,7 +20,6 @@ class Application extends Controller {
 
   val results = new MongoDbGoogleResultService
   val words = new MongoDbWatchListService
-
 
   def current(tld: String, query: String) = Action.async {
     val image = google.getResults(s"https://www.google.$tld?q=$query")
@@ -48,5 +48,11 @@ class Application extends Controller {
 
   def countries() = Action.async{
     TrendingSearchTerms.getListOfCountries().map(list => Ok(views.html.countryTrending(list)))
+  }
+
+  def term(term: String, tld: String) = Action.async {
+    for {
+      results <- results.getByTerm(SearchTerm(tld, term))
+    } yield Ok(results.toString())
   }
 }
