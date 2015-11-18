@@ -46,8 +46,4 @@ class Application extends Controller {
       //countryResult <- Trending.getCountryResult(country)
     } yield Ok(views.html.index(watchList.map{a =>(a.id, a.searchTerm.query)}, CountryResult(country, Nil), countries))
   }
-
-  def countries() = Action.async{
-    TrendingSearchTerms.getListOfCountries().map(list => Ok(views.html.countryTrending(list)))
-  }
 }
