@@ -20,7 +20,6 @@ class Application extends Controller {
   val results = new MongoDbGoogleResultService
   val words = new MongoDbWatchListService
 
-
   def current(tld: String, query: String) = Action.async {
     val image = google.getResults(s"https://www.google.$tld?q=$query")
     image map { result => Ok(Json.toJson(result)) }
@@ -48,5 +47,12 @@ class Application extends Controller {
 
   def countries() = Action.async{
     TrendingSearchTerms.getListOfCountries().map(list => Ok(views.html.countryTrending(list)))
+  }
+
+  def term(id: String) = Action.async {
+    for {
+      term <- words.getById(id)
+      results <- results.getByTerm(term)
+    } yield Ok(results.toString())
   }
 }
