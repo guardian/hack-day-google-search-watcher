@@ -10,18 +10,23 @@ html {
 
 body {
     background-color: white;
-    width: 900px;
     margin: 0 auto;
 }
 
+div#content {
+    width: 900px;
+    margin: auto;
+}
+
 h1 {
+
     background: #005689;
-    height: 50px;
     color: white;
-    font-weight: bold;
-    font-size: 200%;
-    padding: 0 510px 1em;
-    margin: 0 -500px;
+    font-weight: normal;
+    font-size: 250%;
+    padding-left: 10px;
+    line-height: 80px;
+    margin: 0;
 }
 
 nav {
@@ -52,10 +57,6 @@ nav a {
 
 #content {
     position: relative;
-}
-
-form#switch_country {
-    text-align: right;
 }
 
 section {

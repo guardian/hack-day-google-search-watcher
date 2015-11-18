@@ -3,22 +3,23 @@
 @main("Google Search Watcher") {
 
     <section id="trending">
-        <h2>Trending in @countryResult.country</h2>
-        <form action="/" method="get" id="switch_country">
-            <p>See trends in
+        <h2>Trending in @countryResult.country.replace('_', ' ')</h2>
+      <ul class="termList">
+        <li>
+          <form action="/" method="get" id="switch_country">
+            <label for="country">See trends in</label>
             <select name="country">
             @for(country <- countries) {
-                @if(country == countryResult.country) {
-                    <option selected value="@country">@country</option>
-                } else {
-                    <option value="@country">@country</option>
-                }
+              @if(country == countryResult.country) {
+                <option selected value="@country">@country</option>
+              } else {
+                <option value="@country">@country</option>
+              }
             }
             </select>
-            <input type="submit" value=">>"></p>
-        </form>
-
-        <ul class="termList">
+            <span class="right"><input type="submit" value=">>"></span>
+          </form>
+        </li>
         @for(tr <- countryResult.termResults) {
             <li>
                 <form action="/add-watch" method="POST">
