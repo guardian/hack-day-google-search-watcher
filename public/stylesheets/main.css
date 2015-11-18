@@ -67,7 +67,7 @@ section {
 }
 
 #summary {
-    height: 420px;
+    height: 400px;
     background: rgb(72, 79, 83);
     color: white;
 }
@@ -174,4 +174,9 @@ ul {
 
 .termList {
     margin-left: 10px;
+}
+
+.termList input[type="submit"] {
+    clear: both;
+    float: right;
 }

@@ -2,13 +2,14 @@
 @(latestResult: SearchTermResult)
 @main("Dashboard") {
 
-    <section id="summary" style="max-height : 70 px">
+    <section id="summary">
         <dl>
             <dt>Search term</dt>
             <dd>@latestResult.searchTerm.query</dd>
             <dt>Region</dt>
             <dd>@latestResult.searchTerm.tld</dd>
         </dl>
+      <img src="data:image/png;base64,@latestResult.googleResult.image" height="400">
     </section>
 
     <section id="current-view">
