@@ -29,6 +29,7 @@ class Application extends Controller {
   def addWatch() = Action { implicit request =>
     val id = AddWatchWord.bindFromRequest().get
     words.add(id)
+    actor ! Nil
     Redirect("/")
   }
 
