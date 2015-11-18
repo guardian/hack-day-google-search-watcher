@@ -192,3 +192,22 @@ ul {
     line-height: 36px;
 }
 
+button[type="submit"] {
+    border: 0;
+    color: white;
+    border-radius: 14px;
+    width: 28px;
+    height: 28px;
+}
+
+button.add {
+    background-color: #595;
+}
+
+button.del {
+    background-color: #955;
+}
+
+button:hover {
+    cursor: pointer
+}

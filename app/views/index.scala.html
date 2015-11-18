@@ -17,7 +17,11 @@
               }
             }
             </select>
-            <span class="right"><input type="submit" value=">>"></span>
+            <span class="right">
+              <button type="submit" class="add">
+                <i class="fa fa-hand-o-right"></i>
+              </button>
+            </span>
           </form>
         </li>
         @for(tr <- countryResult.termResults) {
@@ -29,7 +33,11 @@
                 }
                     <input type="hidden" name="tld" value="@tld">
                     <input type="hidden" name="term" value="@tr.term">
-                    <span class="right"><input type="submit" value=">>"></span>
+                <span class="right">
+                  <button type="submit" class="add">
+                    <i class="fa fa-hand-o-right"></i>
+                  </button>
+                </span>
                 </form>
             </li>
         }
@@ -42,6 +50,7 @@
           <label for="term">Watch</label>
             <input type="text" name="term" placeholder="Search term">
             <input type="hidden" name="tld" value="@tld">
+
             <input type="submit" value="+">
         </form>
           <ul class="termList">
@@ -50,7 +59,11 @@
                 <form action="/remove-watch" method="post">
                   <a href="/term?term=@{word._2}&tld=@{word._1}">@word._2</a>
                     <input type="hidden" name="id" value="@word._3">
-                    <span class="right"><input type="submit" value="-"></span>
+                  <span class="right">
+                    <button type="submit" class="del">
+                      <i class="fa fa-hand-o-down"></i>
+                    </button>
+                  </span>
                 </form>
               </li>
               }
@@ -63,7 +76,11 @@
             <a href="/term?term=@{term.query}&tld=@{term.tld}">@term.query</a>
           <input type="hidden" name="tld" value="@term.tld">
           <input type="hidden" name="term" value="@term.query">
-          <span class="right"><input type="submit" value="^"></span>
+            <span class="right">
+              <button type="submit" class="add">
+                <i class="fa fa-hand-o-up"></i>
+              </button>
+            </span>
           </form>
         </li>
       }
