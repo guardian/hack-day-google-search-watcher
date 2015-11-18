@@ -9,8 +9,30 @@
                 @for(tr <- countryResult.termResults){
                     @if(tr.inTopBox){
                         <li><em>@tr.term  top box </em> <a href="/" title="add watch">[+]</a></li>
+                        <form action="/add-watch" method="POST">
+                            <select name="tld">
+                                <option value="com">.com</option>
+                                <option value="co.uk">.co.uk</option>
+                                <option value="fr">.fr</option>
+                                <option value="nl">.nl</option>
+                                <option value="de">.de</option>
+                            </select>
+                            <input type="hidden" name="term" value="@tr.term">
+                            <input type="submit" value="Watch">
+                        </form>
                     } else {
                         <li>@tr.term <a href="/" title="add watch">[+]</a></li>
+                        <form action="/add-watch" method="POST">
+                            <select name="tld">
+                                <option value="com">.com</option>
+                                <option value="co.uk">.co.uk</option>
+                                <option value="fr">.fr</option>
+                                <option value="nl">.nl</option>
+                                <option value="de">.de</option>
+                            </select>
+                            <input type="hidden" name="term" value="@tr.term">
+                            <input type="submit" value="Watch">
+                        </form>
                     }
 
                 }
