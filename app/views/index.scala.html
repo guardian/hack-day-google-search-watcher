@@ -1,45 +1,60 @@
-@(words: Seq[(String, String)], countryResult: CountryResult)
+@(words: Seq[(String, String)], countryResult: CountryResult, countries: List[String])
 
-    @main("Google Search Watcher") {
+@main("Google Search Watcher") {
 
-        <section>
-            <h2>Trending in @countryResult.country</h2>
-            <ul>
-
-                @for(tr <- countryResult.termResults){
-                    @if(tr.inTopBox){
-                        <li><em>@tr.term  top box </em> <a href="/" title="add watch">[+]</a></li>
-                    } else {
-                        <li>@tr.term <a href="/" title="add watch">[+]</a></li>
-                    }
-
+    <section>
+        <h2>Trending in @countryResult.country</h2>
+        <form action="/" method="get" id="switch_country">
+            See trends in
+            <select name="country">
+            @for(country <- countries) {
+                @if(country == countryResult.country) {
+                    <option selected value="@country">@country</option>
+                } else {
+                    <option value="@country">@country</option>
                 }
-            </ul>
-            <form action="/add-watch" method="POST">
-              <select name="tld">
+            }
+            </select>
+            <input type="submit" value=">>">
+        </form>
+        <ul>
+
+        @for(tr <- countryResult.termResults) {
+            @if(tr.inTopBox) {
+                <li><em>@tr.term top box </em> <a href="/" title="add watch">[+]</a></li>
+            } else {
+                <li>@tr.term <a href="/" title="add watch">[+]</a></li>
+            }
+
+        }
+        </ul>
+        <form action="/add-watch" method="POST">
+            Watch
+            <input type="text" name="term" placeholder="Search term">
+            on
+            <select name="tld">
                 <option value="com">.com</option>
                 <option value="co.uk">.co.uk</option>
                 <option value="fr">.fr</option>
                 <option value="nl">.nl</option>
                 <option value="de">.de</option>
-              </select>
-              <input type="text" name="term" placeholder="Search term">
-              <input type="submit" value="Watch">
-            </form>
-        </section>
+            </select>
+            <input type="submit" value=">>">
+        </form>
+    </section>
 
-        <section>
+    <section>
         <h2>Watch list</h2>
-          <ul>
-            @for(word <- words) {
-              <li>
+        <ul>
+        @for(word <- words) {
+            <li>
                 <p><a href="/dashboard?q=@word._2">@word._2</a></p>
                 <form action="/remove-watch" method="post">
-                  <input type="hidden" name="id" value="@word._1">
-                  <input type="submit" value="Remove">
+                    <input type="hidden" name="id" value="@word._1">
+                    <input type="submit" value="Remove">
                 </form>
-              </li>
-            }
-          </ul>
-        </section>
-    }
+            </li>
+        }
+        </ul>
+    </section>
+}
